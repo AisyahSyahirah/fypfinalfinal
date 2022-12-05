@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "807137615655",
+    "project_id": "fypreal-55a12",
+    "storage_bucket": "fypreal-55a12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807137615655:android:f5a883aa517eb5718c9302",
+        "android_client_info": {
+          "package_name": "com.example.tutor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "807137615655-24jpd6tfhgdraug5qfdlmf3p003kqmf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLGj-538qvfT_x3B14I8ano8gzN3FAbE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "807137615655-24jpd6tfhgdraug5qfdlmf3p003kqmf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
