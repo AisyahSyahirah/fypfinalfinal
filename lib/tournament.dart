@@ -31,8 +31,8 @@ class _TournamentState extends State<Tournament> {
       var docSnapshot = await info.doc(event).get();
       if (docSnapshot.exists) {
         Map<String, dynamic>? data = docSnapshot.data();
-        var fname = data?['event'];
-        var ic = data?['tournament'];
+        var event = data?['event'];
+        var tournament = data?['tournament'];
   }
 
   // void _showDialog(String fname, ic, contact, mail, sub) {
@@ -55,60 +55,54 @@ class _TournamentState extends State<Tournament> {
 
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ISE Eye'),
+   Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: const Text('DropdownButton Sample')),
+        body: const Center(
+          child: TournamentState(),
+        ),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: ListView(
-            children : 
-              StreamBuilder<QuerySnapshot>(  
-               stream: Firestore.instance.collection('sport').snapshots(), builder: (context, snapshot) {
-               if (!snapshot.hasData)
-               return Center(
-               child: CupertinoActivityIndicator(),
-              );
+    );
+  }
+}
 
-               return Container(
-               padding: EdgeInsets.only(bottom: 16.0),
-               child: Row(
-               children: <Widget>[
-               Expanded(
-                  flex: 2,
-                  child: Container(
-                    padding: EdgeInsets.fromLTRB(12.0, 10.0, 10.0, 10.0),
-                    child: Text(
-                      "Event",
-                    ),
-                  )),
-               new Expanded(
-                flex: 4,
-                child: DropdownButton(
-                  value: eventname,
-                  isDense: true,
-                  onChanged: (valueSelectedByUser) {
-                    _onShopDropItemSelected(valueSelectedByUser);
-                  },
-                  hint: Text('Select Event'),
-                  items: snapshot.data.documents
-                      .map((DocumentSnapshot document) {
-                    return DropdownMenuItem<String>(
-                      value: document.data['event name'] +
-                          ' ' +
-                          document.data['shop_type'],
-                      child: Text(document.data['plant_name'] +
-                          ' ' +
-                          document.data['shop_type']),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ],
-          ),
+class _TournamentState  extends StatefulWidget {
+  const Tournament({super.key});
+
+  @override
+  State<Tournament> createState() => _TournamentState();
+}
+
+class _TournamentState extends State<Tournament> {
+  String dropdownValue = list.first;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tournament<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurple),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item.
+        setState(() {
+          dropdownValue = value!;
+        });
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
         );
-      });
+      }).toList(),
+    );
+  }
+}
                  Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: ElevatedButton(
@@ -120,13 +114,5 @@ class _TournamentState extends State<Tournament> {
                     child: const Text('OK'),
                   )
                 ),
-                  ],
-                )
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
