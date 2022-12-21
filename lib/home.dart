@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor/home.dart';
 import 'routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//HELLO
+//HELLo
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
