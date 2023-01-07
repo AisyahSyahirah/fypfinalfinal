@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class Ugallery extends StatefulWidget {
-  const Ugallery({Key? key}) : super(key: key);
+class Gallery extends StatefulWidget {
+  const Gallery({Key? key}) : super(key: key);
 
   @override
-  State<Ugallery> createState() => _UgalleryState();
+  State<Gallery> createState() => _GalleryState();
 }
 
-class _UgalleryState extends State<Ugallery> {
+class _GalleryState extends State<Gallery> {
   final List<String> imageList = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
