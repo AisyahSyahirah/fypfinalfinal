@@ -59,6 +59,15 @@ class _UhomeState extends State<Uhome> {
 //         );
 //       },
 //     );
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  dynamic data;
+  void read() async {
+    // Map<String,dynamic>? info = extract.data();
+    // print(info);
+    var info = await db.collection("event").get();
+    data = info.docs.map((doc) => doc.id.toString()).toList();
+    // print(data);
+  }
 
   @override
   void initState() {

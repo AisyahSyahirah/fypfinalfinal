@@ -3,6 +3,7 @@ import 'package:tutor/home.dart';
 import 'routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'items.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,7 +22,24 @@ class _HomeState extends State<Home> {
 
   final TextEditingController _eventController = TextEditingController();
 
-  var announcement;
+  var announcement, focusday;
+  var data;
+  // Event event = new Event();
+  void _setdate(focusDay) {
+    setState(() {
+      focusday = focusDay;
+    });
+  }
+
+  void _update() async {
+    try {
+      await firestore.collection('event').doc('eventname').update({
+        'eventname': focusday,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void _setAnnouncement(String text) {
     setState(() {
@@ -38,9 +56,9 @@ class _HomeState extends State<Home> {
     } catch (e) {
       print(e);
     }
-  } 
+  }
 
-    void _showDialog() {
+  void _showDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -155,7 +173,8 @@ class _HomeState extends State<Home> {
                         selectedDay = selectDay;
                         focusedDay = focusDay;
                       });
-                      print(focusedDay);
+                      // print(focusedDay);
+                      _setdate(focusDay);
                     },
                     selectedDayPredicate: (DateTime date) {
                       return isSameDay(selectedDay, date);
@@ -224,18 +243,19 @@ class _HomeState extends State<Home> {
               TextButton(
                 child: const Text("Ok"),
                 onPressed: () {
-                  if (_eventController.text.isEmpty) {
-                  } else {
-                    if (selectedEvents[selectedDay] != null) {
-                      selectedEvents[selectedDay]?.add(
-                        Event(title: _eventController.text),
-                      );
-                    } else {
-                      selectedEvents[selectedDay] = [
-                        Event(title: _eventController.text)
-                      ];
-                    }
-                  }
+                  // if (_eventController.text.isEmpty) {
+                  // } else {
+                  //   if (selectedEvents[selectedDay] != null) {
+                  //     selectedEvents[selectedDay]?.add(
+                  //       Event(title: _eventController.text),
+                  //     );
+                  //   } else {
+                  //     selectedEvents[selectedDay] = [
+                  //       Event(title: _eventController.text)
+                  //     ];
+                  //   }
+                  // }
+                  _update();
                   Navigator.pop(context);
                   _eventController.clear();
                   setState(() {});
@@ -261,6 +281,16 @@ class Event {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  void read() async {
+    // Map<String,dynamic>? info = extract.data();
+    // print(info);
+    var info = await db.collection("event").get();
+    data = info.docs.map((doc) => doc.id.toString()).toList();
+    // print(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -287,7 +317,12 @@ class NavDrawer extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data),
                 );
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.tournament,
+                // );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),
