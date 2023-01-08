@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Tournament extends StatefulWidget {
   const Tournament({Key? key}) : super(key: key);
@@ -10,6 +13,29 @@ class Tournament extends StatefulWidget {
 }
 
 class _TournamentState extends State<Tournament> {
+
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  var data;
+  late bool isLoad;
+  @override
+  void initState(){
+    isLoad = true;
+    read();
+    super.initState();
+  }
+  Future read() async{
+    setState(() {
+      isLoad = true;
+    });
+    // Map<String,dynamic>? info = extract.data();
+    // print(info);
+    var info = await db.collection("event").get();
+    data = info.docs.map((doc) => doc.id.toString()).toList();
+    // print(data);
+    setState(() {
+      isLoad = false;
+    });
+  }
   final List<String> items = [
     'Item1',
     'Item2',
@@ -35,12 +61,8 @@ class _TournamentState extends State<Tournament> {
                 child: Column(children: <Widget>[
           const Text("Select tournament and event",
               style: TextStyle(
-                  fontWeight: FontWeight.bold, height: 3, fontSize: 20)),
-          Container(padding: const EdgeInsets.all(10)),
-          const Text(
-            "Event:",
-            textAlign: TextAlign.left,
-          ),
+                  fontWeight: FontWeight.bold, height: 8, fontSize: 20)),
+
           //dropdown event
           Container(
             padding: const EdgeInsets.all(20),
@@ -142,12 +164,7 @@ class _TournamentState extends State<Tournament> {
               ),
             ),
           ),
-          Container(padding: const EdgeInsets.all(10)),
 
-          const Text(
-            "Tournament:",
-            textAlign: TextAlign.left,
-          ),
           //dropdown tournament
           Container(
             padding: const EdgeInsets.all(20),
@@ -249,19 +266,22 @@ class _TournamentState extends State<Tournament> {
                       ],
                     )),
           ),
-          Container(padding: const EdgeInsets.all(20)),
+          Container(padding: const EdgeInsets.all(10)),
           SizedBox(
               height: 30,
               width: 100,
               child: ElevatedButton(
-                  child: const Text('OK'),
+                  child: const Text('Search'),
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
                       Routes.result,
                     );
                   })),
-        ]))));
+        ]
+        )
+        )
+        ));
   }
 }
 

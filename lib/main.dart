@@ -9,10 +9,26 @@ import 'uhome.dart';
 import 'utournament.dart';
 import 'uresult.dart';
 import 'ugallery.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() async {
+// void main() async {
+//   runApp(const MyApp());
+// }
+  
+  void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    // Replace with actual values
+    options: FirebaseOptions(
+      apiKey: "AIzaSyCLGj-538qvfT_x3B14I8ano8gzN3FAbE8",
+      appId: "1:807137615655:android:f5a883aa517eb5718c9302",
+      messagingSenderId: "807137615655",
+      projectId: "fypreal-55a12",)
+  );
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

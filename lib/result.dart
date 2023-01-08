@@ -244,6 +244,8 @@
 
 import 'package:flutter/material.dart';
 import 'routes.dart';
+//import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Result extends StatefulWidget {
   const Result({Key? key}) : super(key: key);
@@ -254,10 +256,64 @@ class Result extends StatefulWidget {
 
 class _ResultState extends State<Result> {
   final _formKey = GlobalKey<FormState>();
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  var event, tournament, rank, name, participants;
+
+  void _setevent(String text){
+    setState(() {
+      event = text;
+    });
+  }
+
+  void _settournament(String text){
+    setState(() {
+      tournament = text;
+    });
+  }
+
+  void _setrank(String text){
+    setState(() {
+      rank = text;
+    });
+  }
+
+  void _setname(String text){
+    setState(() {
+      name = text;
+    });
+  }
+
+  void _setparticipants(String text){
+    setState(() {
+      participants = text;
+    });
+  }
+
+  void _update() async {
+    try {
+      await firestore.collection('tutor').doc('fullname').update({
+        'fullname': "meen",
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void _delete() async {
+    try {
+      await firestore.collection('tutor').doc().delete();
+    }
+    catch(e) {
+      print(e);
+    }
+    
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: NavDrawer(),
         appBar: AppBar(
           title: const Text('Result Page'),
         ),
@@ -399,5 +455,66 @@ class _ResultState extends State<Result> {
           )),
           Container(padding: const EdgeInsets.all(20))
         ])));
+  }
+}
+
+//sidebar menu
+class NavDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            child: Text(
+              'MENU',
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 64, 112, 134),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/images/cover.jpg'))),
+          ),
+          ListTile(
+              leading: const Icon(Icons.input),
+              title: const Text('Home'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.home,
+                );
+              }),
+          ListTile(
+              leading: const Icon(Icons.verified_user),
+              title: const Text('Tournament'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.tournament,
+                );
+              }),
+          ListTile(
+              leading: const Icon(Icons.border_color),
+              title: const Text('Gallery'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.gallery,
+                );
+              }),
+          ListTile(
+              leading: const Icon(Icons.exit_to_app),
+              title: const Text('Logout'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.uhome,
+                );
+              }),
+        ],
+      ),
+    );
   }
 }

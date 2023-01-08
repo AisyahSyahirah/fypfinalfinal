@@ -12,6 +12,7 @@ class _UresultState extends State<Uresult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: NavDrawer(),
         appBar: AppBar(
           title: const Text('Result Page'),
         ),
@@ -93,5 +94,65 @@ class _UresultState extends State<Uresult> {
           ),
           Container(padding: const EdgeInsets.all(20))
         ])));
+  }
+}
+
+class NavDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const DrawerHeader(
+            child: Text(
+              'MENU',
+              style: TextStyle(color: Colors.white, fontSize: 25),
+            ),
+            decoration: BoxDecoration(
+                color: Color.fromARGB(255, 64, 112, 134),
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage('assets/images/cover.jpg'))),
+          ),
+          ListTile(
+              leading: Icon(Icons.input),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.uhome,
+                );
+              }),
+          ListTile(
+              leading: Icon(Icons.verified_user),
+              title: Text('Tournament'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.utournament,
+                );
+              }),
+          ListTile(
+              leading: Icon(Icons.border_color),
+              title: Text('Gallery'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.ugallery,
+                );
+              }),
+          ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Routes.login,
+                );
+              }),
+        ],
+      ),
+    );
   }
 }

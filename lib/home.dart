@@ -29,18 +29,18 @@ class _HomeState extends State<Home> {
     });
   }
 
-  // void _create() async {
-  //   try {
-  //     await firestore.collection('announcement').doc(announcement).set({
-  //       'newannouncement': announcement,
-  //     });
-  //     _showDialog(Announcement);
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // } 
+  void _create() async {
+    try {
+      await firestore.collection('announcement').doc(announcement).set({
+        'newannouncement': announcement,
+      });
+      _showDialog();
+    } catch (e) {
+      print(e);
+    }
+  } 
 
-   void _showDialog() {
+    void _showDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
