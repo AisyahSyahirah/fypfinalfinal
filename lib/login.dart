@@ -11,11 +11,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-   final _formKey = GlobalKey<FormState>();
-   FirebaseAuth auth = FirebaseAuth.instance;
+  final _formKey = GlobalKey<FormState>();
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   var password, email;
-  
+
   void _setPass(String text) {
     setState(() {
       password = text;
@@ -32,17 +32,16 @@ class _LoginState extends State<Login> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-            email: "iseiium@gmail.com",
-            password: "iseiium");
+              email: "iseiium@gmail.com", password: "iseiium");
       Navigator.pushNamed(context, Routes.home);
     } on FirebaseAuthException catch (e) {
-        if (e.code == 'wrong-password') {
+      if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
       }
     }
   }
-  
-   void _showDialog() {
+
+  void _showDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
