@@ -26,11 +26,9 @@ class _TournamentState extends State<Tournament> {
   }
 
   Future read() async {
-    // Map<String,dynamic>? info = extract.data();
-    // print(info);
-    // Items items = ModalRoute.of(context)!.settings.arguments as Items;
-    // print('test');
-    // print(data);
+    final Items items = ModalRoute.of(context)!.settings.arguments as Items;
+    List<String> item = items.item;
+    print(item);
   }
 
   final List<String> items = [
@@ -47,6 +45,7 @@ class _TournamentState extends State<Tournament> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(

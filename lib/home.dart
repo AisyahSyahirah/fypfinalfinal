@@ -22,23 +22,18 @@ class _HomeState extends State<Home> {
 
   final TextEditingController _eventController = TextEditingController();
 
-  var announcement, focusday;
+  var announcement, focusday, event;
   var data;
   // Event event = new Event();
+  void _setEvent(text){
+    setState(() {
+      event = text;
+    });
+  }
   void _setdate(focusDay) {
     setState(() {
       focusday = focusDay;
     });
-  }
-
-  void _update() async {
-    try {
-      await firestore.collection('event').doc('eventname').update({
-        'eventname': focusday,
-      });
-    } catch (e) {
-      print(e);
-    }
   }
 
   void _setAnnouncement(String text) {
@@ -49,10 +44,11 @@ class _HomeState extends State<Home> {
 
   void _create() async {
     try {
-      await firestore.collection('announcement').doc(announcement).set({
-        'newannouncement': announcement,
+      await firestore.collection('announcement').doc().set({
+        'newannouncement': event,
+        'date' : focusday
       });
-      _showDialog();
+      // _showDialog();
     } catch (e) {
       print(e);
     }
@@ -234,6 +230,9 @@ class _HomeState extends State<Home> {
             title: const Text("Add Event"),
             content: TextFormField(
               controller: _eventController,
+              onChanged: (text) {
+                _setEvent(text);
+              },
             ),
             actions: [
               TextButton(
@@ -243,19 +242,19 @@ class _HomeState extends State<Home> {
               TextButton(
                 child: const Text("Ok"),
                 onPressed: () {
-                  // if (_eventController.text.isEmpty) {
-                  // } else {
-                  //   if (selectedEvents[selectedDay] != null) {
-                  //     selectedEvents[selectedDay]?.add(
-                  //       Event(title: _eventController.text),
-                  //     );
-                  //   } else {
-                  //     selectedEvents[selectedDay] = [
-                  //       Event(title: _eventController.text)
-                  //     ];
-                  //   }
-                  // }
-                  _update();
+                  if (_eventController.text.isEmpty) {
+                  } else {
+                    if (selectedEvents[selectedDay] != null) {
+                      selectedEvents[selectedDay]?.add(
+                        Event(title: _eventController.text),
+                      );
+                    } else {
+                      selectedEvents[selectedDay] = [
+                        Event(title: _eventController.text)
+                      ];
+                    }
+                  }
+                  _create();
                   Navigator.pop(context);
                   _eventController.clear();
                   setState(() {});

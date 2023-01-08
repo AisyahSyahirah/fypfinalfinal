@@ -60,13 +60,36 @@ class _UhomeState extends State<Uhome> {
 //       },
 //     );
   FirebaseFirestore db = FirebaseFirestore.instance;
-  dynamic data;
-  void read() async {
-    // Map<String,dynamic>? info = extract.data();
-    // print(info);
-    var info = await db.collection("event").get();
-    data = info.docs.map((doc) => doc.id.toString()).toList();
-    // print(data);
+  void _retireve(focusDay) async{
+    var info = await db.collection('announcement').where("date", isEqualTo: focusDay).get();
+    var data = info.docs.map((doc) => doc.data()).toList();
+    var length = data.length;
+    var event = data[0]['newannouncement'];
+    String? text;
+    // print(length);
+    for (var i = 0; i < length; i++) {
+      text = data[i]['newannouncement'];
+    }
+    _showDialog(text);
+  }
+  void _showDialog(var text) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("Event \n Information", textAlign: TextAlign.center),
+          content: new Text(text),
+          actions: <Widget>[
+            new ElevatedButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -155,7 +178,7 @@ class _UhomeState extends State<Uhome> {
                             selectedDay = selectDay;
                             focusedDay = focusDay;
                           });
-                          print(focusedDay);
+                          _retireve(focusedDay);
                         },
                         selectedDayPredicate: (DateTime date) {
                           return isSameDay(selectedDay, date);
