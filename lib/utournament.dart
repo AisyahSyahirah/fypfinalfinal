@@ -38,7 +38,7 @@ class _UtournamentState extends State<Utournament> {
     }
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavDrawer(),
@@ -232,20 +232,12 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
-          ),
+          Container(padding: const EdgeInsets.all(20)),
+          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          Container(padding: const EdgeInsets.all(20)),
           ListTile(
-              leading: Icon(Icons.input),
-              title: Text('Home'),
+              leading: const Icon(Icons.input),
+              title: const Text('Home'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -253,8 +245,9 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Tournament'),
+              leading: const Icon(Icons.verified_user),
+              title: const Text('Tournament'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -262,8 +255,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Gallery'),
+              leading: const Icon(Icons.border_color),
+              title: const Text('Gallery'),
               onTap: () {
                 Navigator.pushNamed(
                   context,

@@ -23,7 +23,7 @@ class _UgalleryState extends State<Ugallery> {
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
-        title: const Text('Gallery Page'),
+        title: const Text("Tournament Gallery"),
       ),
       body: Center(
         child: CarouselSlider(
@@ -50,34 +50,10 @@ class _UgalleryState extends State<Ugallery> {
               .toList(),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text("Add Photo"),
-            content: TextFormField(
-              decoration: const InputDecoration(labelText: 'Name'),
-            ),
-            actions: [
-              TextButton(
-                child: const Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-              TextButton(
-                child: const Text("Ok"),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-        ),
-        label: const Text("Add Photo"),
-        icon: const Icon(Icons.add),
-      ),
     );
   }
 }
 
-//sidebar menu
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -85,24 +61,16 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
-          ),
+          Container(padding: const EdgeInsets.all(20)),
+          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          Container(padding: const EdgeInsets.all(20)),
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.home,
+                  Routes.uhome,
                 );
               }),
           ListTile(
@@ -111,25 +79,26 @@ class NavDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.tournament,
+                  Routes.utournament,
                 );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),
               title: const Text('Gallery'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.gallery,
+                  Routes.ugallery,
                 );
               }),
           ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text('Logout'),
+              leading: Icon(Icons.exit_to_app),
+              title: Text('Login'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  Routes.uhome,
+                  Routes.login,
                 );
               }),
         ],

@@ -102,6 +102,12 @@ class _HomeState extends State<Home> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(
+                    height: 150, width: 250, child: Image.asset('logo.png')),
+                const Text(
+                  "Announcement Section",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 //
                 //announcement
                 Container(
@@ -261,20 +267,13 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
-          ),
+          Container(padding: const EdgeInsets.all(20)),
+          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          Container(padding: const EdgeInsets.all(20)),
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,

@@ -48,7 +48,7 @@ class _TournamentState extends State<Tournament> {
   ];
   String? selectedValue;
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: NavDrawer(),
@@ -278,10 +278,7 @@ class _TournamentState extends State<Tournament> {
                       Routes.result,
                     );
                   })),
-        ]
-        )
-        )
-        ));
+        ]))));
   }
 }
 
@@ -293,17 +290,9 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
-          ),
+          Container(padding: const EdgeInsets.all(20)),
+          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          Container(padding: const EdgeInsets.all(20)),
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
@@ -316,6 +305,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,

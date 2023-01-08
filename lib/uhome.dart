@@ -22,7 +22,6 @@ class _UhomeState extends State<Uhome> {
 
   final TextEditingController _eventController = TextEditingController();
 
-
 //  void _read() async {
 //      DocumentSnapshot documentSnapshot;
 //       documentSnapshot = await firestore.collection('announcement').doc('').get();
@@ -99,21 +98,31 @@ class _UhomeState extends State<Uhome> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
+                    SizedBox(
                         height: 150,
-                        width: 300,
-                        margin: const EdgeInsets.all(10),
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)),
-                        child: SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: Center(
-                              child: Text(
-                                'ANNOUNCEMENTS' * 20,
-                                style: const TextStyle(fontSize: 15),
-                              ),
-                            ))),
+                        width: 250,
+                        child: Image.asset('logo.png')),
+                    const Text(
+                      "Announcement Section",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      height: 150,
+                      width: 300,
+                      margin: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Center(
+                          child: Text(
+                            "Announcement" * 20,
+                            style: const TextStyle(fontSize: 15),
+                          ),
+                        ),
+                      ),
+                    ),
                     Container(
                       width: 500,
                       margin: const EdgeInsets.all(10),
@@ -190,6 +199,7 @@ class Event {
   String toString() => this.title;
 }
 
+//sidebar menu
 class NavDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -197,20 +207,13 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
-          ),
+          Container(padding: const EdgeInsets.all(20)),
+          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          Container(padding: const EdgeInsets.all(20)),
           ListTile(
-              leading: Icon(Icons.input),
-              title: Text('Home'),
+              leading: const Icon(Icons.input),
+              title: const Text('Home'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -218,8 +221,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.verified_user),
-              title: Text('Tournament'),
+              leading: const Icon(Icons.verified_user),
+              title: const Text('Tournament'),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -227,8 +230,8 @@ class NavDrawer extends StatelessWidget {
                 );
               }),
           ListTile(
-              leading: Icon(Icons.border_color),
-              title: Text('Gallery'),
+              leading: const Icon(Icons.border_color),
+              title: const Text('Gallery'),
               onTap: () {
                 Navigator.pushNamed(
                   context,

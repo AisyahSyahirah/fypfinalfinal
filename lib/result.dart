@@ -260,31 +260,31 @@ class _ResultState extends State<Result> {
 
   var event, tournament, rank, name, participants;
 
-  void _setevent(String text){
+  void _setevent(String text) {
     setState(() {
       event = text;
     });
   }
 
-  void _settournament(String text){
+  void _settournament(String text) {
     setState(() {
       tournament = text;
     });
   }
 
-  void _setrank(String text){
+  void _setrank(String text) {
     setState(() {
       rank = text;
     });
   }
 
-  void _setname(String text){
+  void _setname(String text) {
     setState(() {
       name = text;
     });
   }
 
-  void _setparticipants(String text){
+  void _setparticipants(String text) {
     setState(() {
       participants = text;
     });
@@ -292,22 +292,12 @@ class _ResultState extends State<Result> {
 
   void _update() async {
     try {
-      await firestore.collection('tutor').doc('fullname').update({
-        'fullname': "meen",
+      await firestore.collection('event').doc().update({
+        'eventname': "",
       });
     } catch (e) {
       print(e);
     }
-  }
-
-  void _delete() async {
-    try {
-      await firestore.collection('tutor').doc().delete();
-    }
-    catch(e) {
-      print(e);
-    }
-    
   }
 
   @override
@@ -365,13 +355,16 @@ class _ResultState extends State<Result> {
               ]),
             ],
           ),
-          SizedBox(
+          Container(
+              width: 10,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: ElevatedButton(
                   child: const Text('Add name'),
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
-                            title: const Text("Add participant"),
+                            title: const Text("Add name"),
                             content: Form(
                                 key: _formKey,
                                 child: Column(
@@ -431,28 +424,32 @@ class _ResultState extends State<Result> {
               ]),
             ],
           ),
-          SizedBox(
+          Container(
+              width: 10,
+              margin: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: ElevatedButton(
-            child: const Text('Add participant'),
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                      title: const Text("Add participant"),
-                      content: TextFormField(
-                        decoration: const InputDecoration(labelText: 'Name'),
-                      ),
-                      actions: [
-                        TextButton(
-                          child: const Text("Cancel"),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                        TextButton(
-                          child: const Text("Ok"),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ],
-                    )),
-          )),
+                child: const Text('Add participant'),
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                          title: const Text("Add participant"),
+                          content: TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'Name'),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            TextButton(
+                              child: const Text("Ok"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        )),
+              )),
           Container(padding: const EdgeInsets.all(20))
         ])));
   }
@@ -466,17 +463,9 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
-            child: Text(
-              'MENU',
-              style: TextStyle(color: Colors.white, fontSize: 25),
-            ),
-            decoration: BoxDecoration(
-                color: Color.fromARGB(255, 64, 112, 134),
-                image: DecorationImage(
-                    fit: BoxFit.fill,
-                    image: AssetImage('assets/images/cover.jpg'))),
-          ),
+          Container(padding: const EdgeInsets.all(20)),
+          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          Container(padding: const EdgeInsets.all(20)),
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
@@ -489,6 +478,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
