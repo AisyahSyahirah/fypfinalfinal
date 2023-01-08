@@ -473,7 +473,6 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
-              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -483,6 +482,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
+              tileColor: Colors.blue,
               onTap: () async{
                 var info = await db.collection("event").get();
                 data = info.docs.map((doc) => doc.id.toString()).toList();

@@ -3,6 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'items.dart';
 
 class Uhome extends StatefulWidget {
   const Uhome({Key? key}) : super(key: key);
@@ -61,14 +62,16 @@ class _UhomeState extends State<Uhome> {
 //     );
   FirebaseFirestore db = FirebaseFirestore.instance;
   void _retireve(focusDay) async{
-    var info = await db.collection('announcement').where("date", isEqualTo: focusDay).get();
+    var info = await db.collection('event').where("date", isEqualTo: focusDay).get();
     var data = info.docs.map((doc) => doc.data()).toList();
     var length = data.length;
-    var event = data[0]['newannouncement'];
-    String? text;
+    var event = data[0]['eventname'];
+    String? text = '';
     // print(length);
     for (var i = 0; i < length; i++) {
-      text = data[i]['newannouncement'];
+      String info = data[i]['eventname'];
+  
+      text = text!+'\n'+info;
     }
     _showDialog(text);
   }
@@ -77,7 +80,7 @@ class _UhomeState extends State<Uhome> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: new Text("Event \n Information", textAlign: TextAlign.center),
+          title: new Text("Event Information", textAlign: TextAlign.center),
           content: new Text(text),
           actions: <Widget>[
             new ElevatedButton(
@@ -233,6 +236,8 @@ class Event {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -255,11 +260,18 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () {
+              onTap: () async{
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.utournament,
+                  arguments: Items(item: data),
                 );
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.utournament,
+                // );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),

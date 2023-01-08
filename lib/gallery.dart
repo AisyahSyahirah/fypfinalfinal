@@ -256,7 +256,6 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
-              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -278,6 +277,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.border_color),
               title: const Text('Gallery'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,

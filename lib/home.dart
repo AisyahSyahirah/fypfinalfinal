@@ -43,8 +43,8 @@ class _HomeState extends State<Home> {
 
   void _create() async {
     try {
-      await firestore.collection('announcement').doc().set({
-        'newannouncement': event,
+      await firestore.collection('event').doc(event).set({
+        'eventname': event,
         'date' : focusday
       });
       // _showDialog();

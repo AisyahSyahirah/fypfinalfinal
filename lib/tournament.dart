@@ -17,20 +17,25 @@ class Tournament extends StatefulWidget {
 
 class _TournamentState extends State<Tournament> {
   FirebaseFirestore db = FirebaseFirestore.instance;
-  var data;
-
-  @override
-  // final List<String> items = [
-  //   'Item1',
-  //   'Item2',
-  //   'Item3',
-  //   'Item4',
-  //   'Item5',
-  //   'Item6',
-  //   'Item7',
-  //   'Item8',
-  // ];
+  var data,event,tour;
   String? selectedValue;
+  void setEvent(text){
+    setState(() {
+      event = text;
+    });
+  }
+  void setTour(text){
+    tour = text;
+  }
+
+  void createEvent(){
+    db.collection('event').doc(event).set({
+      
+    });
+  }
+  void createTour(){
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +141,9 @@ class _TournamentState extends State<Tournament> {
                 title: const Text("Add Event"),
                 content: TextFormField(
                   decoration: const InputDecoration(labelText: 'Event'),
+                  onChanged: (text){
+                    setEvent(text);
+                  },
                 ),
                 actions: [
                   TextButton(
@@ -144,7 +152,10 @@ class _TournamentState extends State<Tournament> {
                   ),
                   TextButton(
                     child: const Text("Ok"),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () {
+                      createEvent();
+                      Navigator.pop(context);
+                    } 
                   ),
                 ],
               ),
@@ -239,6 +250,9 @@ class _TournamentState extends State<Tournament> {
                       content: TextFormField(
                         decoration:
                             const InputDecoration(labelText: 'Tournament'),
+                            onChanged: (text){
+                              setTour(text);
+                            },
                       ),
                       actions: [
                         TextButton(
@@ -247,7 +261,10 @@ class _TournamentState extends State<Tournament> {
                         ),
                         TextButton(
                           child: const Text("Ok"),
-                          onPressed: () => Navigator.pop(context),
+                          onPressed: () {
+                            createTour();
+                            Navigator.pop(context);
+                          }
                         ),
                       ],
                     )),
@@ -272,7 +289,7 @@ class _TournamentState extends State<Tournament> {
 class NavDrawer extends StatelessWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<String> data = [];
-  
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
