@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor/items.dart';
 import 'routes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'items.dart';
 
 class Tournament extends StatefulWidget {
   const Tournament({Key? key}) : super(key: key);
@@ -13,29 +16,23 @@ class Tournament extends StatefulWidget {
 }
 
 class _TournamentState extends State<Tournament> {
-
   FirebaseFirestore db = FirebaseFirestore.instance;
   var data;
-  late bool isLoad;
+
   @override
-  void initState(){
-    isLoad = true;
+  void initState() {
     read();
     super.initState();
   }
-  Future read() async{
-    setState(() {
-      isLoad = true;
-    });
+
+  Future read() async {
     // Map<String,dynamic>? info = extract.data();
     // print(info);
-    var info = await db.collection("event").get();
-    data = info.docs.map((doc) => doc.id.toString()).toList();
+    // Items items = ModalRoute.of(context)!.settings.arguments as Items;
+    // print('test');
     // print(data);
-    setState(() {
-      isLoad = false;
-    });
   }
+
   final List<String> items = [
     'Item1',
     'Item2',
@@ -48,7 +45,7 @@ class _TournamentState extends State<Tournament> {
   ];
   String? selectedValue;
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: NavDrawer(),
