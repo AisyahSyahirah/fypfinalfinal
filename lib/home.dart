@@ -282,13 +282,15 @@ class Event {
 class NavDrawer extends StatelessWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<String> data = [];
-  void read() async {
+  @override
+  Future read() async {
     // Map<String,dynamic>? info = extract.data();
     // print(info);
     var info = await db.collection("event").get();
     data = info.docs.map((doc) => doc.id.toString()).toList();
-    // print(data);
+    print(data);
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -313,11 +315,12 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
               onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  Routes.tournament,
-                  arguments: Items(item: data),
-                );
+                read();
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.tournament,
+                //   arguments: Items(item: data),
+                // );
                 // Navigator.pushNamed(
                 //   context,
                 //   Routes.tournament,
