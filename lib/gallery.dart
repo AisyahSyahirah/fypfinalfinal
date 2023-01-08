@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -10,13 +12,21 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  final List<String> imageList = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-  ];
+  final firebase_storage.FirebaseStorage storage =
+  firebase_storage.FirebaseStorage.instance;
+
+  Future<void> uploadFile(
+    String filePath,
+    String fileName)
+  } async {
+    File file = File(filePath);
+
+    try {
+      await storage.ref('gallery/$fileName').putFile(file);
+    } on FirebaseFirestore.FirebaseException catch (e) {
+      print(e);
+    }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -137,3 +147,4 @@ class NavDrawer extends StatelessWidget {
     );
   }
 }
+
