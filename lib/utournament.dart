@@ -25,20 +25,19 @@ class _UtournamentState extends State<Utournament> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-
   void _read() async {
     DocumentSnapshot documentSnapshot;
-    documentSnapshot = await firestore.collection('event').doc('eventname').get();
+    documentSnapshot =
+        await firestore.collection('event').doc('eventname').get();
     var info = firestore.collection('event');
     var docSnapshot = await info.doc('eventname').get();
     if (docSnapshot.exists) {
       Map<String, dynamic>? data = docSnapshot.data();
       var event = data?['eventname'];
-      
     }
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavDrawer(),
