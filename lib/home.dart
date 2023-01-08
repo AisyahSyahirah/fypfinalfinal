@@ -23,7 +23,6 @@ class _HomeState extends State<Home> {
   final TextEditingController _eventController = TextEditingController();
 
   var announcement, focusday, event;
-  var data;
   // Event event = new Event();
   void _setEvent(text){
     setState(() {
@@ -282,15 +281,6 @@ class Event {
 class NavDrawer extends StatelessWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<String> data = [];
-  @override
-  Future read() async {
-    // Map<String,dynamic>? info = extract.data();
-    // print(info);
-    var info = await db.collection("event").get();
-    data = info.docs.map((doc) => doc.id.toString()).toList();
-    print(data);
-  }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -314,17 +304,14 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () {
-                read();
-                // Navigator.pushNamed(
-                //   context,
-                //   Routes.tournament,
-                //   arguments: Items(item: data),
-                // );
-                // Navigator.pushNamed(
-                //   context,
-                //   Routes.tournament,
-                // );
+              onTap: () async{
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
+                Navigator.pushNamed(
+                  context,
+                  Routes.tournament,
+                  arguments: Items(item: data),
+                );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),

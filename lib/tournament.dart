@@ -20,32 +20,22 @@ class _TournamentState extends State<Tournament> {
   var data;
 
   @override
-  void initState() {
-    read();
-    super.initState();
-  }
-
-  Future read() async {
-    final Items items = ModalRoute.of(context)!.settings.arguments as Items;
-    List<String> item = items.item;
-    print(item);
-  }
-
-  final List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
-    'Item5',
-    'Item6',
-    'Item7',
-    'Item8',
-  ];
+  // final List<String> items = [
+  //   'Item1',
+  //   'Item2',
+  //   'Item3',
+  //   'Item4',
+  //   'Item5',
+  //   'Item6',
+  //   'Item7',
+  //   'Item8',
+  // ];
   String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
-    
+    final Items items = ModalRoute.of(context)!.settings.arguments as Items;
+    List<String> event = items.item;
     return Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
@@ -82,7 +72,7 @@ class _TournamentState extends State<Tournament> {
                   ),
                 ],
               ),
-              items: items
+              items: event
                   .map((item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(
@@ -184,7 +174,7 @@ class _TournamentState extends State<Tournament> {
                   ),
                 ],
               ),
-              items: items
+              items: event
                   .map((item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(
@@ -280,6 +270,9 @@ class _TournamentState extends State<Tournament> {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+  
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -302,11 +295,18 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
               tileColor: Colors.blue,
-              onTap: () {
+              onTap: () async{
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data),
                 );
+                // Navigator.pushNamed(
+                //   context,
+                //   Routes.tournament,
+                // );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),

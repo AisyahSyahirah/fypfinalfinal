@@ -152,6 +152,8 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'items.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -239,6 +241,9 @@ class _GalleryState extends State<Gallery> {
 
 //sidebar menu
 class NavDrawer extends StatelessWidget {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  List<String> data = [];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -251,6 +256,7 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
+              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -260,16 +266,18 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () {
+              onTap: () async{
+                var info = await db.collection("event").get();
+                data = info.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
+                  arguments: Items(item: data),
                 );
               }),
           ListTile(
               leading: const Icon(Icons.border_color),
               title: const Text('Gallery'),
-              tileColor: Colors.blue,
               onTap: () {
                 Navigator.pushNamed(
                   context,
