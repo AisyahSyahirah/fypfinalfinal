@@ -4,6 +4,7 @@ import 'routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'items.dart';
+import 'announcement.dart';
 
 class Uhome extends StatefulWidget {
   const Uhome({Key? key}) : super(key: key);
@@ -65,7 +66,6 @@ class _UhomeState extends State<Uhome> {
     var info = await db.collection('event').where("date", isEqualTo: focusDay).get();
     var data = info.docs.map((doc) => doc.data()).toList();
     var length = data.length;
-    var event = data[0]['eventname'];
     String? text = '';
     // print(length);
     for (var i = 0; i < length; i++) {
@@ -94,7 +94,7 @@ class _UhomeState extends State<Uhome> {
       },
     );
   }
-
+  
   @override
   void initState() {
     selectedEvents = {};
@@ -109,6 +109,8 @@ class _UhomeState extends State<Uhome> {
 
   @override
   Widget build(BuildContext context) {
+    // Announcement ann =  ModalRoute.of(context)!.settings.arguments as Announcement;
+    // String? text = ann.announcement;
     return Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
@@ -152,8 +154,9 @@ class _UhomeState extends State<Uhome> {
                         scrollDirection: Axis.vertical,
                         child: Center(
                           child: Text(
-                            "Announcement" * 20,
+                            "text",
                             style: const TextStyle(fontSize: 15),
+                            
                           ),
                         ),
                       ),
@@ -252,10 +255,19 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.input),
               title: const Text('Home'),
               tileColor: Colors.blue,
-              onTap: () {
+              onTap: () async{
+                String? annc = '';
+                var ann = await db.collection('announcement').get();
+                var annData = ann.docs.map((doc) => doc.data()).toList();
+                var length = annData.length;
+                for (var i = 0; i < length; i++) {
+                  String data = annData[i]['newannouncement'];
+                  annc = annc! +'\n'+ data;
+                }
                 Navigator.pushNamed(
                   context,
                   Routes.uhome,
+                  arguments: Announcement(announcement: annc)
                 );
               }),
           ListTile(
@@ -268,7 +280,7 @@ class NavDrawer extends StatelessWidget {
                 tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
-                  Routes.tournament,
+                  Routes.utournament,
                   arguments: Items(
                     item: data,
                     tour: tourdata

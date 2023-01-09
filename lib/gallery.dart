@@ -154,6 +154,7 @@ import 'routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'items.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'announcement.dart';
 
 class Gallery extends StatefulWidget {
   const Gallery({Key? key}) : super(key: key);
@@ -257,10 +258,19 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
-              onTap: () {
+              onTap: () async{
+                String? annc = '';
+                var ann = await db.collection('announcement').get();
+                var annData = ann.docs.map((doc) => doc.data()).toList();
+                var length = annData.length;
+                for (var i = 0; i < length; i++) {
+                  String data = annData[i]['newannouncement'];
+                  annc = annc! +'\n'+ data;
+                }
                 Navigator.pushNamed(
                   context,
                   Routes.home,
+                  arguments: Announcement(announcement: annc)
                 );
               }),
           ListTile(

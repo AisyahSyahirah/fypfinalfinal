@@ -21,11 +21,11 @@ void main() async {
   await Firebase.initializeApp(
       // Replace with actual values
       options: FirebaseOptions(
-    apiKey: "AIzaSyCLGj-538qvfT_x3B14I8ano8gzN3FAbE8",
-    appId: "1:807137615655:android:f5a883aa517eb5718c9302",
-    messagingSenderId: "807137615655",
-    projectId: "fypreal-55a12",
-  ));
+          apiKey: "AIzaSyCLGj-538qvfT_x3B14I8ano8gzN3FAbE8",
+          appId: "1:807137615655:android:f5a883aa517eb5718c9302",
+          messagingSenderId: "807137615655",
+          projectId: "fypreal-55a12",
+      ));
   runApp(const MyApp());
 }
 

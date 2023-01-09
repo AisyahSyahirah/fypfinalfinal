@@ -247,6 +247,7 @@ import 'routes.dart';
 //import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'items.dart';
+import 'announcement.dart';
 
 class Result extends StatefulWidget {
   const Result({Key? key}) : super(key: key);
@@ -474,10 +475,19 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
-              onTap: () {
+              onTap: () async{
+                String? annc = '';
+                var ann = await db.collection('announcement').get();
+                var annData = ann.docs.map((doc) => doc.data()).toList();
+                var length = annData.length;
+                for (var i = 0; i < length; i++) {
+                  String data = annData[i]['newannouncement'];
+                  annc = annc! +'\n'+ data;
+                }
                 Navigator.pushNamed(
                   context,
                   Routes.home,
+                  arguments: Announcement(announcement: annc)
                 );
               }),
           ListTile(

@@ -4,6 +4,7 @@ import 'routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'items.dart';
+import 'announcement.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -39,6 +40,16 @@ class _HomeState extends State<Home> {
     setState(() {
       announcement = text;
     });
+  }
+  void createAnnouncement() async{
+    try {
+      await firestore.collection('announcement').doc().set({
+        'newannouncement' : announcement
+      });
+      // _showDialog();
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _create() async {
@@ -79,7 +90,10 @@ class _HomeState extends State<Home> {
                 ),
                 TextButton(
                   child: const Text("Add"),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    createAnnouncement();
+                    Navigator.pop(context);
+                  } 
                 ),
               ]);
         });
@@ -103,6 +117,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Announcement ann =  ModalRoute.of(context)!.settings.arguments as Announcement;
+    String? text = ann.announcement;
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -134,7 +150,7 @@ class _HomeState extends State<Home> {
                         scrollDirection: Axis.vertical,
                         child: Center(
                           child: Text(
-                            "Announcement" * 20,
+                            "$text",
                             style: const TextStyle(fontSize: 15),
                           ),
                         ))),
@@ -282,6 +298,7 @@ class NavDrawer extends StatelessWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<String> data = [];
   List<String> tourdata = [];
+  String? announcement;
 
   @override
   Widget build(BuildContext context) {
@@ -296,10 +313,19 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.input),
               title: const Text('Home'),
               tileColor: Colors.blue,
-              onTap: () {
+              onTap: () async{
+                String? annc = '';
+                var ann = await db.collection('announcement').get();
+                var annData = ann.docs.map((doc) => doc.data()).toList();
+                var length = annData.length;
+                for (var i = 0; i < length; i++) {
+                  String data = annData[i]['newannouncement'];
+                  annc = annc! +'\n'+ data;
+                }
                 Navigator.pushNamed(
                   context,
                   Routes.home,
+                  arguments: Announcement(announcement: annc)
                 );
               }),
           ListTile(

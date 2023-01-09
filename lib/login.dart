@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tutor/home.dart';
 import 'routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'announcement.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -84,6 +86,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseFirestore db = FirebaseFirestore.instance;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -117,10 +120,19 @@ class _LoginState extends State<Login> {
                 width: 250,
                 child: ElevatedButton(
                     child: const Text('Login'),
-                    onPressed: () {
+                    onPressed: () async{
+                      String? annc = '';
+                      var ann = await db.collection('announcement').get();
+                      var annData = ann.docs.map((doc) => doc.data()).toList();
+                      var length = annData.length;
+                      for (var i = 0; i < length; i++) {
+                        String data = annData[i]['newannouncement'];
+                        annc = annc! +'\n'+ data;
+                      }
                       Navigator.pushNamed(
                         context,
                         Routes.home,
+                        arguments: Announcement(announcement: annc)
                       );
                     })),
             Container(

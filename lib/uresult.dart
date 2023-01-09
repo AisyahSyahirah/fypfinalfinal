@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'items.dart';
+import 'announcement.dart';
 
 class Uresult extends StatefulWidget {
   const Uresult({Key? key}) : super(key: key);
@@ -116,11 +117,21 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
-              onTap: () {
-                Navigator.pushNamed(
+              onTap: () async{
+                String? annc = '';
+                var ann = await db.collection('announcement').get();
+                var annData = ann.docs.map((doc) => doc.data()).toList();
+                var length = annData.length;
+                for (var i = 0; i < length; i++) {
+                  String data = annData[i]['newannouncement'];
+                  annc = annc! +'\n'+ data;
+                }
+               Navigator.pushNamed(
                   context,
                   Routes.uhome,
+                  arguments: Announcement(announcement: annc)
                 );
+                  
               }),
           ListTile(
               leading: const Icon(Icons.verified_user),
@@ -133,7 +144,7 @@ class NavDrawer extends StatelessWidget {
                 tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
-                  Routes.tournament,
+                  Routes.utournament,
                   arguments: Items(
                     item: data,
                     tour: tourdata
