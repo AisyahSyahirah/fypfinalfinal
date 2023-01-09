@@ -352,12 +352,8 @@ class NavDrawer extends StatelessWidget {
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
-<<<<<<< HEAD
-                  annc = annc! + '\n' + data;
-=======
                   var number = i + 1;
                   annc = annc! + '\n $number : ' + data;
->>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
                 }
                 Navigator.pushNamed(context, Routes.uhome,
                     arguments: Announcement(announcement: annc));
