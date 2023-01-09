@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor/loadpage.dart';
 import 'routes.dart';
 import 'home.dart';
 import 'login.dart';
@@ -43,8 +44,9 @@ class MyApp extends StatelessWidget {
           // Define the default font family.
           fontFamily: 'Georgia',
         ),
-        initialRoute: Routes.uhome,
+        initialRoute: Routes.loadpage,
         routes: {
+          Routes.loadpage :(context) => const loadpage(),
           Routes.home: (context) => const Home(),
           Routes.login: (context) => const Login(),
           Routes.tournament: (context) => const Tournament(),

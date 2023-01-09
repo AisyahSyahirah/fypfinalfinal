@@ -109,8 +109,8 @@ class _UhomeState extends State<Uhome> {
 
   @override
   Widget build(BuildContext context) {
-    // Announcement ann =  ModalRoute.of(context)!.settings.arguments as Announcement;
-    // String? text = ann.announcement;
+    Announcement ann =  ModalRoute.of(context)!.settings.arguments as Announcement;
+    String? text = ann.announcement;
     return Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
@@ -154,7 +154,7 @@ class _UhomeState extends State<Uhome> {
                         scrollDirection: Axis.vertical,
                         child: Center(
                           child: Text(
-                            "text",
+                            "$text",
                             style: const TextStyle(fontSize: 15),
                             
                           ),

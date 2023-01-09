@@ -10,4 +10,5 @@ class Routes {
   static const utournament = '/usertournament';
   static const uresult = '/userresult';
   static const ugallery = '/usergallery';
+  static const loadpage = '/loadpage';
 }

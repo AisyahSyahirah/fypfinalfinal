@@ -15,6 +15,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   var password, email;
 
@@ -34,8 +35,20 @@ class _LoginState extends State<Login> {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
-              email: "iseiium@gmail.com", password: "iseiium");
-      Navigator.pushNamed(context, Routes.home);
+              email: "iseiium@gmail.com", password: password);
+              String? annc = '';
+                      var ann = await db.collection('announcement').get();
+                      var annData = ann.docs.map((doc) => doc.data()).toList();
+                      var length = annData.length;
+                      for (var i = 0; i < length; i++) {
+                        String data = annData[i]['newannouncement'];
+                        annc = annc! +'\n'+ data;
+                      }
+      Navigator.pushNamed(
+                        context,
+                        Routes.home,
+                        arguments: Announcement(announcement: annc)
+                      );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
@@ -120,20 +133,9 @@ class _LoginState extends State<Login> {
                 width: 250,
                 child: ElevatedButton(
                     child: const Text('Login'),
-                    onPressed: () async{
-                      String? annc = '';
-                      var ann = await db.collection('announcement').get();
-                      var annData = ann.docs.map((doc) => doc.data()).toList();
-                      var length = annData.length;
-                      for (var i = 0; i < length; i++) {
-                        String data = annData[i]['newannouncement'];
-                        annc = annc! +'\n'+ data;
-                      }
-                      Navigator.pushNamed(
-                        context,
-                        Routes.home,
-                        arguments: Announcement(announcement: annc)
-                      );
+                    onPressed: (){
+                      
+                      login();
                     })),
             Container(
                 padding: const EdgeInsets.all(20),

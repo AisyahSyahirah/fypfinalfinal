@@ -43,6 +43,7 @@ class _UtournamentState extends State<Utournament> {
   Widget build(BuildContext context) {
     final Items items = ModalRoute.of(context)!.settings.arguments as Items;
     List<String> event = items.item;
+    List<String> tour = items.tour;
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -157,7 +158,7 @@ class _UtournamentState extends State<Utournament> {
                       ),
                     ],
                   ),
-                  items: event
+                  items: tour
                       .map((item) => DropdownMenuItem<String>(
                             value: item,
                             child: Text(
