@@ -19,7 +19,8 @@ class Tournament extends StatefulWidget {
 class _TournamentState extends State<Tournament> {
   FirebaseFirestore db = FirebaseFirestore.instance;
   var data,event,tour;
-  String? selectedValue;
+  String? selectedValueEvent;
+  String? selectedValueTour;
   void setEvent(text){
     setState(() {
       event = text;
@@ -93,10 +94,10 @@ class _TournamentState extends State<Tournament> {
                         ),
                       ))
                   .toList(),
-              value: selectedValue,
+              value: selectedValueEvent,
               onChanged: (value) {
                 setState(() {
-                  selectedValue = value as String;
+                  selectedValueEvent = value as String;
                 });
               },
               icon: const Icon(
@@ -201,10 +202,10 @@ class _TournamentState extends State<Tournament> {
                         ),
                       ))
                   .toList(),
-              value: selectedValue,
+              value: selectedValueTour,
               onChanged: (value) {
                 setState(() {
-                  selectedValue = value as String;
+                  selectedValueTour = value as String;
                 });
               },
               icon: const Icon(
