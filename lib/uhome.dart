@@ -62,19 +62,21 @@ class _UhomeState extends State<Uhome> {
 //       },
 //     );
   FirebaseFirestore db = FirebaseFirestore.instance;
-  void _retireve(focusDay) async{
-    var info = await db.collection('event').where("date", isEqualTo: focusDay).get();
+  void _retireve(focusDay) async {
+    var info =
+        await db.collection('event').where("date", isEqualTo: focusDay).get();
     var data = info.docs.map((doc) => doc.data()).toList();
     var length = data.length;
     String? text = '';
     // print(length);
     for (var i = 0; i < length; i++) {
       String info = data[i]['eventname'];
-  
-      text = text!+'\n'+info;
+
+      text = text! + '\n' + info;
     }
     _showDialog(text);
   }
+
   void _showDialog(var text) {
     showDialog(
       context: context,
@@ -94,7 +96,7 @@ class _UhomeState extends State<Uhome> {
       },
     );
   }
-  
+
   @override
   void initState() {
     selectedEvents = {};
@@ -109,7 +111,8 @@ class _UhomeState extends State<Uhome> {
 
   @override
   Widget build(BuildContext context) {
-    Announcement ann =  ModalRoute.of(context)!.settings.arguments as Announcement;
+    Announcement ann =
+        ModalRoute.of(context)!.settings.arguments as Announcement;
     String? text = ann.announcement;
     return Scaffold(
         drawer: NavDrawer(),
@@ -156,7 +159,6 @@ class _UhomeState extends State<Uhome> {
                           child: Text(
                             "$text",
                             style: const TextStyle(fontSize: 15),
-                            
                           ),
                         ),
                       ),
@@ -255,25 +257,23 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.input),
               title: const Text('Home'),
               tileColor: Colors.blue,
-              onTap: () async{
+              onTap: () async {
                 String? annc = '';
                 var ann = await db.collection('announcement').get();
                 var annData = ann.docs.map((doc) => doc.data()).toList();
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
-                  annc = annc! +'\n'+ data;
+                  var number = i + 1;
+                  annc = annc! + '\n $number : ' + data;
                 }
-                Navigator.pushNamed(
-                  context,
-                  Routes.uhome,
-                  arguments: Announcement(announcement: annc)
-                );
+                Navigator.pushNamed(context, Routes.uhome,
+                    arguments: Announcement(announcement: annc));
               }),
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () async{
+              onTap: () async {
                 var info = await db.collection("event").get();
                 data = info.docs.map((doc) => doc.id.toString()).toList();
                 var tour = await db.collection("tournament").get();
@@ -281,10 +281,7 @@ class NavDrawer extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.utournament,
-                  arguments: Items(
-                    item: data,
-                    tour: tourdata
-                    ),
+                  arguments: Items(item: data, tour: tourdata),
                 );
                 // Navigator.pushNamed(
                 //   context,

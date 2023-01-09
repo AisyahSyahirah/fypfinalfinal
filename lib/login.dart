@@ -42,7 +42,8 @@ class _LoginState extends State<Login> {
       var length = annData.length;
       for (var i = 0; i < length; i++) {
         String data = annData[i]['newannouncement'];
-        annc = annc! + '\n' + data;
+        var number = i + 1;
+        annc = annc! + '\n $number : ' + data;
       }
       Navigator.pushNamed(context, Routes.home,
           arguments: Announcement(announcement: annc));
@@ -51,47 +52,6 @@ class _LoginState extends State<Login> {
         print('Wrong password provided for that user.');
       }
     }
-  }
-
-  void _showDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Subscribe using email to get notifications",
-                textAlign: TextAlign.center),
-            content: TextFormField(
-              decoration: const InputDecoration(labelText: 'Email'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                return null;
-              },
-              onChanged: (text) {
-                _setEmail(text);
-              },
-            ),
-            actions: [
-              TextButton(
-                  child: const Text("Cancel"),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.uhome,
-                    );
-                  }),
-              TextButton(
-                  child: const Text("Ok"),
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      Routes.uhome,
-                    );
-                  }),
-            ],
-          );
-        });
   }
 
   @override
@@ -147,7 +107,12 @@ class _LoginState extends State<Login> {
                 child: TextButton(
                     child: const Text('Not an admin? | Continue as guest',
                         style: TextStyle(decoration: TextDecoration.underline)),
-                    onPressed: _showDialog)),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        Routes.uhome,
+                      );
+                    })),
           ],
         ),
       )),
