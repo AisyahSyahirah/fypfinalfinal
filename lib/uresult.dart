@@ -27,6 +27,7 @@ class _UresultState extends State<Uresult> {
                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 3),
             textAlign: TextAlign.center,
           ),
+<<<<<<< HEAD
           // Container(
           //   padding: const EdgeInsets.all(10),
           //   child: const Text(
@@ -41,6 +42,8 @@ class _UresultState extends State<Uresult> {
           //     style: TextStyle(fontWeight: FontWeight.bold),
           //   ), //kat sini nak panggil balik tournament yg dia choose kat dropdown tadi
           // ),
+=======
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
           DataTable(
             columns: const [
               DataColumn(

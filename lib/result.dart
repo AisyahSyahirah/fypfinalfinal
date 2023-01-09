@@ -73,20 +73,6 @@ class _ResultState extends State<Result> {
                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 3),
             textAlign: TextAlign.center,
           ),
-          // Container(
-          //   padding: const EdgeInsets.all(10),
-          //   child: const Text(
-          //     "Event:",
-          //     style: TextStyle(fontWeight: FontWeight.bold),
-          //   ), //kat sini nak panggil balik event yg dia choose kat dropdown tadi
-          // ),
-          // Container(
-          //   padding: const EdgeInsets.all(10),
-          //   child: const Text(
-          //     "Tournament:",
-          //     style: TextStyle(fontWeight: FontWeight.bold),
-          //   ), //kat sini nak panggil balik tournament yg dia choose kat dropdown tadi
-          // ),
           DataTable(
             columns: const [
               DataColumn(
@@ -238,8 +224,12 @@ class NavDrawer extends StatelessWidget {
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
+<<<<<<< HEAD
                   var number = i + 1;
                   annc = annc! + '\n $number : ' + data;
+=======
+                  annc = annc! + '\n' + data;
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
                 }
                 Navigator.pushNamed(context, Routes.home,
                     arguments: Announcement(announcement: annc));
@@ -278,7 +268,12 @@ class NavDrawer extends StatelessWidget {
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
+<<<<<<< HEAD
                   annc = annc! + '\n' + data;
+=======
+                  var number = i + 1;
+                  annc = annc! + '\n $number : ' + data;
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
                 }
                 Navigator.pushNamed(context, Routes.uhome,
                     arguments: Announcement(announcement: annc));

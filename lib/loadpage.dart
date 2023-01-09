@@ -15,10 +15,15 @@ class loadpage extends StatefulWidget {
 }
 
 class _loadpagestate extends State<loadpage> {
+<<<<<<< HEAD
   void test() {}
 
+=======
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
   @override
   Widget build(BuildContext context) {
+    String? annc = '';
+    FirebaseFirestore db = FirebaseFirestore.instance;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -32,8 +37,11 @@ class _loadpagestate extends State<loadpage> {
                 padding: EdgeInsets.all(20),
                 child: ElevatedButton(
                   onPressed: () async {
+<<<<<<< HEAD
                     String? annc = '';
                     FirebaseFirestore db = FirebaseFirestore.instance;
+=======
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
                     var ann = await db.collection('announcement').get();
                     var annData = ann.docs.map((doc) => doc.data()).toList();
                     var length = annData.length;

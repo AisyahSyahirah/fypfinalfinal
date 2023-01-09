@@ -42,7 +42,12 @@ class _LoginState extends State<Login> {
       var length = annData.length;
       for (var i = 0; i < length; i++) {
         String data = annData[i]['newannouncement'];
+<<<<<<< HEAD
         annc = annc! + '\n' + data;
+=======
+        var number = i + 1;
+        annc = annc! + '\n $number : ' + data;
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
       }
       Navigator.pushNamed(context, Routes.home,
           arguments: Announcement(announcement: annc));
@@ -53,6 +58,7 @@ class _LoginState extends State<Login> {
     }
   }
 
+<<<<<<< HEAD
   // void _showDialog() {
   //   showDialog(
   //       context: context,
@@ -94,6 +100,8 @@ class _LoginState extends State<Login> {
   //       });
   // }
 
+=======
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore db = FirebaseFirestore.instance;
@@ -143,6 +151,7 @@ class _LoginState extends State<Login> {
                   },
                 )),
             Container(
+<<<<<<< HEAD
                 padding: const EdgeInsets.all(20),
                 child: TextButton(
                     child: const Text('Not an admin? | Continue as guest',
@@ -153,6 +162,26 @@ class _LoginState extends State<Login> {
                         Routes.uhome,
                       );
                     })),
+=======
+              padding: const EdgeInsets.all(20),
+              child: TextButton(
+                  child: const Text('Not an admin? | Continue as guest',
+                      style: TextStyle(decoration: TextDecoration.underline)),
+                  onPressed: () async {
+                    String? annc = '';
+                    var ann = await db.collection('announcement').get();
+                    var annData = ann.docs.map((doc) => doc.data()).toList();
+                    var length = annData.length;
+                    for (var i = 0; i < length; i++) {
+                      String data = annData[i]['newannouncement'];
+                      var number = i + 1;
+                      annc = annc! + '\n $number : ' + data;
+                    }
+                    Navigator.pushNamed(context, Routes.uhome,
+                        arguments: Announcement(announcement: annc));
+                  }),
+            ),
+>>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
           ],
         ),
       )),
