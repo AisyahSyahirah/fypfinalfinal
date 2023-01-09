@@ -102,6 +102,8 @@ class _UresultState extends State<Uresult> {
 class NavDrawer extends StatelessWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<String> data = [];
+  List<String> tourdata = [];
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -127,10 +129,15 @@ class NavDrawer extends StatelessWidget {
               onTap: () async{
                 var info = await db.collection("event").get();
                 data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
-                  Routes.utournament,
-                  arguments: Items(item: data),
+                  Routes.tournament,
+                  arguments: Items(
+                    item: data,
+                    tour: tourdata
+                    ),
                 );
                 // Navigator.pushNamed(
                 //   context,

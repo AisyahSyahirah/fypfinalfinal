@@ -41,6 +41,7 @@ class _TournamentState extends State<Tournament> {
   Widget build(BuildContext context) {
     final Items items = ModalRoute.of(context)!.settings.arguments as Items;
     List<String> event = items.item;
+    List<String> tour = items.tour;
     return Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
@@ -185,7 +186,7 @@ class _TournamentState extends State<Tournament> {
                   ),
                 ],
               ),
-              items: event
+              items: tour
                   .map((item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(
@@ -289,6 +290,7 @@ class _TournamentState extends State<Tournament> {
 class NavDrawer extends StatelessWidget {
   FirebaseFirestore db = FirebaseFirestore.instance;
   List<String> data = [];
+  List<String> tourdata = [];
 
   @override
   Widget build(BuildContext context) {
@@ -315,10 +317,15 @@ class NavDrawer extends StatelessWidget {
               onTap: () async{
                 var info = await db.collection("event").get();
                 data = info.docs.map((doc) => doc.id.toString()).toList();
+                var tour = await db.collection("tournament").get();
+                tourdata = tour.docs.map((doc) => doc.id.toString()).toList();
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
-                  arguments: Items(item: data),
+                  arguments: Items(
+                    item: data,
+                    tour: tourdata
+                    ),
                 );
                 // Navigator.pushNamed(
                 //   context,
