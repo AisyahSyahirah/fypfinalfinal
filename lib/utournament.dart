@@ -23,7 +23,8 @@ class _UtournamentState extends State<Utournament> {
     'Item7',
     'Item8',
   ];
-  String? selectedValue;
+  String? selectedValueEvent;
+  String? selectedValueTour;
   final _formKey = GlobalKey<FormState>();
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -95,10 +96,10 @@ class _UtournamentState extends State<Utournament> {
                           ),
                         ))
                     .toList(),
-                value: selectedValue,
+                value: selectedValueEvent,
                 onChanged: (value) {
                   setState(() {
-                    selectedValue = value as String;
+                    selectedValueEvent = value as String;
                   });
                 },
                 icon: const Icon(
@@ -172,10 +173,10 @@ class _UtournamentState extends State<Utournament> {
                             ),
                           ))
                       .toList(),
-                  value: selectedValue,
+                  value: selectedValueTour,
                   onChanged: (value) {
                     setState(() {
-                      selectedValue = value as String;
+                      selectedValueTour = value as String;
                     });
                   },
                   icon: const Icon(
