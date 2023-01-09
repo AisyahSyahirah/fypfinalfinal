@@ -103,16 +103,24 @@ class _LoginState extends State<Login> {
                   },
                 )),
             Container(
-                padding: const EdgeInsets.all(20),
-                child: TextButton(
-                    child: const Text('Not an admin? | Continue as guest',
-                        style: TextStyle(decoration: TextDecoration.underline)),
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.uhome,
-                      );
-                    })),
+              padding: const EdgeInsets.all(20),
+              child: TextButton(
+                  child: const Text('Not an admin? | Continue as guest',
+                      style: TextStyle(decoration: TextDecoration.underline)),
+                  onPressed: () async {
+                    String? annc = '';
+                    var ann = await db.collection('announcement').get();
+                    var annData = ann.docs.map((doc) => doc.data()).toList();
+                    var length = annData.length;
+                    for (var i = 0; i < length; i++) {
+                      String data = annData[i]['newannouncement'];
+                      var number = i + 1;
+                      annc = annc! + '\n $number : ' + data;
+                    }
+                    Navigator.pushNamed(context, Routes.uhome,
+                        arguments: Announcement(announcement: annc));
+                  }),
+            ),
           ],
         ),
       )),

@@ -27,20 +27,6 @@ class _UresultState extends State<Uresult> {
                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold, height: 3),
             textAlign: TextAlign.center,
           ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              "Event:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ), //kat sini nak panggil balik event yg dia choose kat dropdown tadi
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: const Text(
-              "Tournament:",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ), //kat sini nak panggil balik tournament yg dia choose kat dropdown tadi
-          ),
           DataTable(
             columns: const [
               DataColumn(
