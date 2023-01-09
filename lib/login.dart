@@ -42,12 +42,8 @@ class _LoginState extends State<Login> {
       var length = annData.length;
       for (var i = 0; i < length; i++) {
         String data = annData[i]['newannouncement'];
-<<<<<<< HEAD
-        annc = annc! + '\n' + data;
-=======
         var number = i + 1;
         annc = annc! + '\n $number : ' + data;
->>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
       }
       Navigator.pushNamed(context, Routes.home,
           arguments: Announcement(announcement: annc));
@@ -58,50 +54,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-<<<<<<< HEAD
-  // void _showDialog() {
-  //   showDialog(
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return AlertDialog(
-  //           title: const Text("Subscribe using email to get notifications",
-  //               textAlign: TextAlign.center),
-  //           content: TextFormField(
-  //             decoration: const InputDecoration(labelText: 'Email'),
-  //             validator: (value) {
-  //               if (value == null || value.isEmpty) {
-  //                 return 'Please enter your email';
-  //               }
-  //               return null;
-  //             },
-  //             onChanged: (text) {
-  //               _setEmail(text);
-  //             },
-  //           ),
-  //           actions: [
-  //             TextButton(
-  //                 child: const Text("Cancel"),
-  //                 onPressed: () {
-  //                   Navigator.pushNamed(
-  //                     context,
-  //                     Routes.uhome,
-  //                   );
-  //                 }),
-  //             TextButton(
-  //                 child: const Text("Ok"),
-  //                 onPressed: () {
-  //                   Navigator.pushNamed(
-  //                     context,
-  //                     Routes.uhome,
-  //                   );
-  //                 }),
-  //           ],
-  //         );
-  //       });
-  // }
-
-=======
->>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore db = FirebaseFirestore.instance;
@@ -151,18 +103,6 @@ class _LoginState extends State<Login> {
                   },
                 )),
             Container(
-<<<<<<< HEAD
-                padding: const EdgeInsets.all(20),
-                child: TextButton(
-                    child: const Text('Not an admin? | Continue as guest',
-                        style: TextStyle(decoration: TextDecoration.underline)),
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.uhome,
-                      );
-                    })),
-=======
               padding: const EdgeInsets.all(20),
               child: TextButton(
                   child: const Text('Not an admin? | Continue as guest',
@@ -181,7 +121,6 @@ class _LoginState extends State<Login> {
                         arguments: Announcement(announcement: annc));
                   }),
             ),
->>>>>>> 6041dba4e71606b6e299d76a167a15620a4fd3bd
           ],
         ),
       )),
