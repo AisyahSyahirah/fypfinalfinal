@@ -151,10 +151,13 @@ class _LoginState extends State<Login> {
                 height: 40,
                 width: 250,
                 child: ElevatedButton(
-                    child: const Text('Login'),
-                    onPressed: () {
+                  child: const Text('Login'),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
                       login();
-                    })),
+                    }
+                  },
+                )),
             Container(
                 padding: const EdgeInsets.all(20),
                 child: TextButton(
