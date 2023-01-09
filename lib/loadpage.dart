@@ -15,12 +15,10 @@ class loadpage extends StatefulWidget {
 }
 
 class _loadpagestate extends State<loadpage> {
-  void test(){
-
-  }
-
   @override
   Widget build(BuildContext context) {
+    String? annc = '';
+    FirebaseFirestore db = FirebaseFirestore.instance;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -28,34 +26,27 @@ class _loadpagestate extends State<loadpage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start, 
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(20),
-              child: ElevatedButton(
-                onPressed: () async{
-                  String? annc = '';
-                  FirebaseFirestore db = FirebaseFirestore.instance;
-                  var ann = await db.collection('announcement').get();
-                  var annData = ann.docs.map((doc) => doc.data()).toList();
-                  var length = annData.length;
-                  for (var i = 0; i < length; i++) {
-                    String data = annData[i]['newannouncement'];
-                    annc = annc! +'\n'+ data;
-                  }
-                  Navigator.pushNamed(
-                    context,
-                    Routes.uhome,
-                    arguments: Announcement(announcement: annc)
-                  );
-                },
-                child: const Text(
-                  'Continue'
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    var ann = await db.collection('announcement').get();
+                    var annData = ann.docs.map((doc) => doc.data()).toList();
+                    var length = annData.length;
+                    for (var i = 0; i < length; i++) {
+                      String data = annData[i]['newannouncement'];
+                      var number = i + 1;
+                      annc = annc! + '\n $number : ' + data;
+                    }
+                    Navigator.pushNamed(context, Routes.uhome,
+                        arguments: Announcement(announcement: annc));
+                  },
+                  child: const Text('Continue'),
                 ),
-              ),
-            )
-          ]
-          ),
+              )
+            ]),
       ),
     );
   }

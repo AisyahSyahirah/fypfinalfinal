@@ -36,19 +36,16 @@ class _LoginState extends State<Login> {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: "iseiium@gmail.com", password: password);
-              String? annc = '';
-                      var ann = await db.collection('announcement').get();
-                      var annData = ann.docs.map((doc) => doc.data()).toList();
-                      var length = annData.length;
-                      for (var i = 0; i < length; i++) {
-                        String data = annData[i]['newannouncement'];
-                        annc = annc! +'\n'+ data;
-                      }
-      Navigator.pushNamed(
-                        context,
-                        Routes.home,
-                        arguments: Announcement(announcement: annc)
-                      );
+      String? annc = '';
+      var ann = await db.collection('announcement').get();
+      var annData = ann.docs.map((doc) => doc.data()).toList();
+      var length = annData.length;
+      for (var i = 0; i < length; i++) {
+        String data = annData[i]['newannouncement'];
+        annc = annc! + '\n' + data;
+      }
+      Navigator.pushNamed(context, Routes.home,
+          arguments: Announcement(announcement: annc));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
         print('Wrong password provided for that user.');
@@ -113,28 +110,49 @@ class _LoginState extends State<Login> {
           children: <Widget>[
             SizedBox(height: 100, width: 300, child: Image.asset('logo.png')),
             Padding(
-                padding: const EdgeInsets.all(20),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Admin password'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
-                  onChanged: (text) {
-                    _setPass(text);
-                  },
-                )),
+              padding: const EdgeInsets.all(20),
+              child: Form(
+                  key: _formKey,
+                  child: Column(children: <Widget>[
+                    TextFormField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Admin password',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your password';
+                        }
+                        return null;
+                      },
+                      onChanged: (text) {
+                        _setPass(text);
+                      },
+                    ),
+                  ])),
+            ),
+            // Padding(
+            //     padding: const EdgeInsets.all(20),
+            //     child: TextFormField(
+            //       decoration: const InputDecoration(
+            //           border: OutlineInputBorder(),
+            //           labelText: 'Admin password'),
+            //       validator: (value) {
+            //         if (value == null || value.isEmpty) {
+            //           return 'Please enter your password';
+            //         }
+            //         return null;
+            //       },
+            //       onChanged: (text) {
+            //         _setPass(text);
+            //       },
+            //     )),
             SizedBox(
                 height: 40,
                 width: 250,
                 child: ElevatedButton(
                     child: const Text('Login'),
-                    onPressed: (){
-                      
+                    onPressed: () {
                       login();
                     })),
             Container(
