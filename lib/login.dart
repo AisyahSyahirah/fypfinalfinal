@@ -131,22 +131,6 @@ class _LoginState extends State<Login> {
                     ),
                   ])),
             ),
-            // Padding(
-            //     padding: const EdgeInsets.all(20),
-            //     child: TextFormField(
-            //       decoration: const InputDecoration(
-            //           border: OutlineInputBorder(),
-            //           labelText: 'Admin password'),
-            //       validator: (value) {
-            //         if (value == null || value.isEmpty) {
-            //           return 'Please enter your password';
-            //         }
-            //         return null;
-            //       },
-            //       onChanged: (text) {
-            //         _setPass(text);
-            //       },
-            //     )),
             SizedBox(
                 height: 40,
                 width: 250,
