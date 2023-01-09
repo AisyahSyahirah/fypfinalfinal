@@ -25,11 +25,12 @@ class _HomeState extends State<Home> {
 
   var announcement, focusday, event;
   // Event event = new Event();
-  void _setEvent(text){
+  void _setEvent(text) {
     setState(() {
       event = text;
     });
   }
+
   void _setdate(focusDay) {
     setState(() {
       focusday = focusDay;
@@ -41,11 +42,13 @@ class _HomeState extends State<Home> {
       announcement = text;
     });
   }
-  void createAnnouncement() async{
+
+  void createAnnouncement() async {
     try {
-      await firestore.collection('announcement').doc().set({
-        'newannouncement' : announcement
-      });
+      await firestore
+          .collection('announcement')
+          .doc()
+          .set({'newannouncement': announcement});
       // _showDialog();
     } catch (e) {
       print(e);
@@ -54,10 +57,10 @@ class _HomeState extends State<Home> {
 
   void _create() async {
     try {
-      await firestore.collection('event').doc(event).set({
-        'eventname': event,
-        'date' : focusday
-      });
+      await firestore
+          .collection('event')
+          .doc(event)
+          .set({'eventname': event, 'date': focusday});
       // _showDialog();
     } catch (e) {
       print(e);
@@ -89,12 +92,11 @@ class _HomeState extends State<Home> {
                   onPressed: () => Navigator.pop(context),
                 ),
                 TextButton(
-                  child: const Text("Add"),
-                  onPressed: () {
-                    createAnnouncement();
-                    Navigator.pop(context);
-                  } 
-                ),
+                    child: const Text("Add"),
+                    onPressed: () {
+                      createAnnouncement();
+                      Navigator.pop(context);
+                    }),
               ]);
         });
   }
@@ -117,7 +119,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Announcement ann =  ModalRoute.of(context)!.settings.arguments as Announcement;
+    Announcement ann =
+        ModalRoute.of(context)!.settings.arguments as Announcement;
     String? text = ann.announcement;
     return Scaffold(
       drawer: NavDrawer(),
@@ -313,25 +316,23 @@ class NavDrawer extends StatelessWidget {
               leading: const Icon(Icons.input),
               title: const Text('Home'),
               tileColor: Colors.blue,
-              onTap: () async{
+              onTap: () async {
                 String? annc = '';
                 var ann = await db.collection('announcement').get();
                 var annData = ann.docs.map((doc) => doc.data()).toList();
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
-                  annc = annc! +'\n'+ data;
+                  var number = i + 1;
+                  annc = annc! + '\n $number : ' + data;
                 }
-                Navigator.pushNamed(
-                  context,
-                  Routes.home,
-                  arguments: Announcement(announcement: annc)
-                );
+                Navigator.pushNamed(context, Routes.home,
+                    arguments: Announcement(announcement: annc));
               }),
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () async{
+              onTap: () async {
                 var info = await db.collection("event").get();
                 data = info.docs.map((doc) => doc.id.toString()).toList();
                 var tour = await db.collection("tournament").get();
@@ -339,10 +340,7 @@ class NavDrawer extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.tournament,
-                  arguments: Items(
-                    item: data,
-                    tour: tourdata
-                    ),
+                  arguments: Items(item: data, tour: tourdata),
                 );
               }),
           ListTile(
@@ -357,20 +355,17 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.exit_to_app),
               title: const Text('Logout'),
-              onTap: () async{
+              onTap: () async {
                 String? annc = '';
                 var ann = await db.collection('announcement').get();
                 var annData = ann.docs.map((doc) => doc.data()).toList();
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
-                  annc = annc! +'\n'+ data;
+                  annc = annc! + '\n' + data;
                 }
-                Navigator.pushNamed(
-                  context,
-                  Routes.uhome,
-                  arguments: Announcement(announcement: annc)
-                );
+                Navigator.pushNamed(context, Routes.uhome,
+                    arguments: Announcement(announcement: annc));
               }),
         ],
       ),

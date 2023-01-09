@@ -14,9 +14,7 @@ class Ugallery extends StatefulWidget {
 
 class _UgalleryState extends State<Ugallery> {
   final List<String> imageList = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
+    "https://www.iium.edu.my/imagecache/original/64154/LED_1024x768.jpeg",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
   ];
@@ -73,26 +71,23 @@ class NavDrawer extends StatelessWidget {
           ListTile(
               leading: const Icon(Icons.input),
               title: const Text('Home'),
-              onTap: () async{
+              onTap: () async {
                 String? annc = '';
                 var ann = await db.collection('announcement').get();
                 var annData = ann.docs.map((doc) => doc.data()).toList();
                 var length = annData.length;
                 for (var i = 0; i < length; i++) {
                   String data = annData[i]['newannouncement'];
-                  annc = annc! +'\n'+ data;
+                  var number = i + 1;
+                  annc = annc! + '\n $number : ' + data;
                 }
-                Navigator.pushNamed(
-                  context,
-                  Routes.uhome,
-                  arguments: Announcement(announcement: annc)
-                );
-                  
+                Navigator.pushNamed(context, Routes.uhome,
+                    arguments: Announcement(announcement: annc));
               }),
           ListTile(
               leading: const Icon(Icons.verified_user),
               title: const Text('Tournament'),
-              onTap: () async{
+              onTap: () async {
                 var info = await db.collection("event").get();
                 data = info.docs.map((doc) => doc.id.toString()).toList();
                 var tour = await db.collection("tournament").get();
@@ -100,10 +95,7 @@ class NavDrawer extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.utournament,
-                  arguments: Items(
-                    item: data,
-                    tour: tourdata
-                    ),
+                  arguments: Items(item: data, tour: tourdata),
                 );
                 // Navigator.pushNamed(
                 //   context,
