@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: 100, width: 300, child: Image.asset('logo.png')),
+            SizedBox(height: 100, width: 300, child: Image.asset('assets/logo.png')),
             Padding(
               padding: const EdgeInsets.all(20),
               child: Form(

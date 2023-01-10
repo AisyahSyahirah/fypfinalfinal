@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
-                    height: 150, width: 250, child: Image.asset('logo.png')),
+                    height: 150, width: 250, child: Image.asset('assets/logo.png')),
                 const Text(
                   "Announcement Section",
                   style: TextStyle(fontWeight: FontWeight.bold),
@@ -310,7 +310,7 @@ class NavDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           Container(padding: const EdgeInsets.all(20)),
-          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          SizedBox(height: 50, width: 50, child: Image.asset('assets/logo.png')),
           Container(padding: const EdgeInsets.all(20)),
           ListTile(
               leading: const Icon(Icons.input),

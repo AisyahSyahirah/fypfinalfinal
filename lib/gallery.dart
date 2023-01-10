@@ -14,11 +14,9 @@ class Gallery extends StatefulWidget {
 
 class _GalleryState extends State<Gallery> {
   final List<String> imageList = [
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvUgui-suS8DgaljlONNuhy4vPUsC_UKvxJQ&usqp=CAU",
+    "https://www.iium.edu.my/imagecache/original/64154/LED_1024x768.jpeg",
+    "https://www.iium.edu.my/media/59407/IDUS%20Celebration.jpg",
+    "https://www.iium.edu.my/imagecache/large/78420/NEW%20COACHING%20POSTER%20%28Instagram%20Post%29%20%281%29.png"
   ];
 
   @override
@@ -102,7 +100,7 @@ class NavDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           Container(padding: const EdgeInsets.all(20)),
-          SizedBox(height: 50, width: 50, child: Image.asset('logo.png')),
+          SizedBox(height: 50, width: 50, child: Image.asset('assets/logo.png')),
           Container(padding: const EdgeInsets.all(20)),
           ListTile(
               leading: const Icon(Icons.input),

@@ -13,12 +13,9 @@ import 'ugallery.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-// void main() async {
-//   runApp(const MyApp());
-// }
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       // Replace with actual values
       options: FirebaseOptions(
@@ -27,7 +24,7 @@ void main() async {
           messagingSenderId: "807137615655",
           projectId: "fypreal-55a12",
       ));
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
